@@ -1,15 +1,5 @@
-# Build stage
-FROM eclipse-temurin:21-jdk-jammy AS builder
-WORKDIR /app
-COPY .mvn/ .mvn/
-COPY mvnw pom.xml ./
-RUN ./mvnw dependency:go-offline
-COPY src ./src
-RUN ./mvnw clean package -DskipTests
-
-# Run stage
 FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
-COPY --from=builder /app/target/springboot-cicd-github-actions.jar app.jar
+COPY target/springboot-cicd-github-actions.jar app.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "springboot-cicd-github-actions.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]

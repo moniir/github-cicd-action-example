@@ -1,5 +1,4 @@
-name: springboot cicd github actions flow
-
+name: springboot ci/cd github actions flow
 on:
   pull_request:
     branches: [ "master" ]
